@@ -9,6 +9,7 @@ config/                  YAML environment configuration
 src/api_test_framework/  reusable config, auth, client, and reporting layers
 tests/unit/              isolated framework tests
 tests/integration/       real Keycloak and BFF tests
+tests/demo/              opt-in ReportPortal dashboard seed scenarios
 scripts/                 local runner helpers
 ```
 
@@ -46,6 +47,22 @@ pytest -m integration --config config/reportportal.yaml
 ```
 
 Each API call emits `request.json` and `response.json` attachments. Authorization and cookie headers are redacted before logging.
+
+To seed a dashboard with a clearly labeled failure followed by recovery, run the
+opt-in demo twice. The first command intentionally exits with a failed test:
+
+```powershell
+$env:RP_DASHBOARD_DEMO = "1"
+$env:RP_DEMO_FORCE_FAILURE = "1"
+pytest -m dashboard_demo --config config/reportportal.yaml
+
+$env:RP_DEMO_FORCE_FAILURE = "0"
+pytest -m dashboard_demo --config config/reportportal.yaml
+```
+
+These scenarios call the real Keycloak-protected BFF and publish the same sanitized
+request and response attachments as the integration suite. They remain skipped in
+normal runs unless `RP_DASHBOARD_DEMO=1` is set.
 
 ## IAM behavior
 

@@ -32,10 +32,10 @@ log_cli_level = "INFO"
 markers = [
   "unit: isolated framework tests",
   "integration: tests requiring the local demo stack",
+  "dashboard_demo: opt-in scenarios used to seed ReportPortal dashboard history",
   "iam: Keycloak authentication and authorization tests",
   "rest: REST API tests",
 ]
 
 [tool.coverage.run]
 source = ["api_test_framework"]
-
