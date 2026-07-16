@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trading-api-test-framework"
+version = "0.1.0"
+description = "Professional pytest API automation demo with Keycloak and ReportPortal"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "PyYAML==6.0.2",
+  "requests==2.32.5",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest==8.4.1",
+  "pytest-cov==6.2.1",
+  "pytest-reportportal==5.6.9",
+  "responses==0.25.8",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+log_cli = true
+log_cli_level = "INFO"
+markers = [
+  "unit: isolated framework tests",
+  "integration: tests requiring the local demo stack",
+  "iam: Keycloak authentication and authorization tests",
+  "rest: REST API tests",
+]
+
+[tool.coverage.run]
+source = ["api_test_framework"]
+

@@ -1,0 +1,10 @@
+# Copy to config/config.local.yaml for machine-specific overrides.
+# This file is intentionally ignored by Git.
+services:
+  keycloak:
+    username: qa.user
+    password: change-me
+  reportportal:
+    enabled: true
+    api_key: ${RP_API_KEY}
+
